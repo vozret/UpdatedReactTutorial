@@ -28,6 +28,11 @@ const App = () => {
     },
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log("In App.js");
+    console.log(expense);
+  };
+
   const totalExpenses = expenses.map((item) => (
     <Expenses
       key={item.id}
@@ -38,7 +43,7 @@ const App = () => {
   ));
   return (
     <div>
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Card className="expenses">{totalExpenses}</Card>
     </div>
   );
