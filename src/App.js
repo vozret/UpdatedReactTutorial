@@ -1,7 +1,6 @@
 import React from "react";
 
 import Expenses from "./components/Expenses/Expenses";
-import Card from "./components/UI/Card";
 import "./components/Expenses/Expenses.css";
 import NewExpense from "./components/NewExpense/NewExpense";
 
@@ -33,18 +32,10 @@ const App = () => {
     console.log(expense);
   };
 
-  const totalExpenses = expenses.map((item) => (
-    <Expenses
-      key={item.id}
-      title={item.title}
-      amount={item.amount}
-      date={item.date}
-    ></Expenses>
-  ));
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
-      <Card className="expenses">{totalExpenses}</Card>
+      <Expenses expenses={expenses} />
     </div>
   );
 };
