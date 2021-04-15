@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Expenses from './components/Expenses';
+import Card from './components/Card';
 import './components/Expenses.css';
 
 const App = () => {
@@ -35,9 +36,9 @@ const expenses = [
         Let's get started!
       </h2>
       <p>This is also visible</p>
-      <div className="expenses">
+      <Card className="expenses">
         {totalExpenses}
-      </div>
+      </Card>
     </div>
   );
 }
