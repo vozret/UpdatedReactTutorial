@@ -1,6 +1,7 @@
 import React from 'react';
 
-import ExpenseItem from './components/ExpenseItem';
+import Expenses from './components/Expenses';
+import './components/Expenses.css';
 
 const App = () => {
 const expenses = [
@@ -26,7 +27,7 @@ const expenses = [
   ];
 
   const totalExpenses = expenses.map( item =>
-      <ExpenseItem key={item.id} title={item.title} amount={item.amount} date={item.date}></ExpenseItem>
+      <Expenses key={item.id} title={item.title} amount={item.amount} date={item.date}></Expenses>
   )
   return(
     <div>
@@ -34,7 +35,9 @@ const expenses = [
         Let's get started!
       </h2>
       <p>This is also visible</p>
-      {totalExpenses}
+      <div className="expenses">
+        {totalExpenses}
+      </div>
     </div>
   );
 }
