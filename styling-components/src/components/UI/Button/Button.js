@@ -1,39 +1,66 @@
+import React, { useState } from "react";
+
 import styled from "styled-components";
+import Button from "../../UI/Button/Button";
+import "./CourseInput.css";
 
-import "./Button.css";
+const FormControl = styled.div`
+  margin: 0.5rem 0;
 
-const Button = styled.button`
-  width: 100%;
-  font: inherit;
-  padding: 0.5rem 1.5rem;
-  border: 1px solid #8b005d;
-  color: white;
-  background: #8b005d;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
-  cursor: pointer;
-
-  @media (min-width: 768px) {
-    width: auto;
+  & label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: ${(props) => (props.invalid ? "red" : "black")};
   }
 
-  &:focus {
+  & input {
+    display: block;
+    width: 100%;
+    border: 1px solid ${(props) => (props.invalid ? "red" : "#ccc")};
+    background-color: ${(props) => (props.invalid ? "#ffd7d7" : "transparent")};
+    font: inherit;
+    line-height: 1.5rem;
+    padding: 0 0.25rem;
+  }
+
+  & input:focus {
     outline: none;
-  }
-
-  &:hover,
-  &:active {
-    background: #ac0e77;
-    border-color: #ac0e77;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+    background: #fad0ec;
+    border-color: #8b005d;
   }
 `;
 
-// const Button = props => {
-//   return (
-//     <button type={props.type} className="button" onClick={props.onClick}>
-//       {props.children}
-//     </button>
-//   );
-// };
+const CourseInput = (props) => {
+  const [enteredValue, setEnteredValue] = useState("");
+  const [isValid, setIsValid] = useState(true);
 
-export default Button;
+  const goalInputChangeHandler = (event) => {
+    if (event.target.value.trim().length !== 0) {
+      setIsValid(true);
+    }
+    setEnteredValue(event.target.value);
+  };
+
+  const formSubmitHandler = (event) => {
+    event.preventDefault();
+    if (enteredValue.trim().length === 0) {
+      setIsValid(false);
+      return;
+    }
+    props.onAddGoal(enteredValue);
+  };
+
+  return (
+    <form onSubmit={formSubmitHandler}>
+      <FormControl invalid={!isValid}>
+        {/*or: className={!isValid && "invalid"}*/}
+        <label style={{ color: !isValid ? "red" : "black" }}>Course Goal</label>
+        <input type="text" onChange={goalInputChangeHandler} />
+      </FormControl>
+      <Button type="submit">Add Goal</Button>
+    </form>
+  );
+};
+
+export default CourseInput;
